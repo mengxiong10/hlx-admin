@@ -33,6 +33,7 @@
       @keyup.enter.native="toQuery"
     />
     <el-select
+      v-if="user.job !== '老师'"
       v-model="query.teachName"
       clearable
       placeholder="老师姓名"
@@ -101,6 +102,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import eForm from "./qsstudent_form";
 export default {
   components: { eForm },
@@ -125,6 +127,9 @@ export default {
       type: Array,
       required: true,
     },
+  },
+  computed: {
+    ...mapGetters(["user"]),
   },
   data() {
     return {
