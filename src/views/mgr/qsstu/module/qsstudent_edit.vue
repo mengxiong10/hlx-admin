@@ -1,8 +1,16 @@
 <template>
   <div>
-    <el-button v-if="entrytype === 1" size="mini" icon="el-icon-edit" type="primary" @click="to"/>
+    <el-button v-if="entrytype === 1" size="mini" icon="el-icon-edit" type="primary" @click="to" />
     <el-button v-if="entrytype === 2" size="mini" type="primary" @click="to">分配教师</el-button>
-    <eForm ref="form" :sup_this="sup_this" :stuauths="stuauths" :stusources="stusources" :entrytype="entrytype" :is-add="false" :grades="grades"/>
+    <eForm
+      ref="form"
+      :sup_this="sup_this"
+      :stuauths="stuauths"
+      :stusources="stusources"
+      :entrytype="entrytype"
+      :is-add="false"
+      :grades="grades"
+    />
   </div>
 </template>
 <script>
@@ -12,28 +20,28 @@ export default {
   props: {
     data: {
       type: Object,
-      required: true
+      required: true,
     },
     sup_this: {
       type: Object,
-      required: true
+      required: true,
     },
     grades: {
       type: Array,
-      required: true
+      required: true,
     },
     stuauths: {
       type: Array,
-      required: true
+      required: true,
     },
     stusources: {
       type: Array,
-      required: true
+      required: true,
     },
     entrytype: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     to() {
@@ -77,19 +85,20 @@ export default {
         pushEnabled: this.data.push_enabled,
         pushId: this.data.push_id,
         source: this.data.source,
-        authType: this.data.auth_type
+        authType: this.data.auth_type,
       }
-      _this.getTeachInfos()
+      console.log(this.data)
+      _this.getTeachInfos(this.data.dept_id)
       _this.getDeptInfos(this.data.grade)
       _this.dialog = true
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
-  div{
-    display: inline-block;
-    margin-right: 3px;
-  }
+div {
+  display: inline-block;
+  margin-right: 3px;
+}
 </style>

@@ -218,7 +218,7 @@
             type="primary"
             size="mini"
             @click="toCp(scope.row.id, scope.row.real_name)"
-            >测评记录</el-button
+            >测试记录</el-button
           >
           <el-button
             v-permission="['ADMIN', 'QSSTUDENT_ALL', 'QSSTUDENT_EDIT']"

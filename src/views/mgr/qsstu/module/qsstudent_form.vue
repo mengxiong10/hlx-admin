@@ -1,42 +1,105 @@
 <template>
-  <el-dialog :append-to-body="true" :visible.sync="dialog" :title="entrytype === 1 ? '学生信息' : '分配教师'" width="550px">
+  <el-dialog
+    :append-to-body="true"
+    :visible.sync="dialog"
+    :title="entrytype === 1 ? '学生信息' : '分配教师'"
+    width="550px"
+  >
     <el-form ref="form" :model="form" :rules="rules" size="small" label-width="100px">
       <el-form-item label="姓名" prop="realName">
-        <el-input v-model="form.realName" readonly style="width: 370px;"/>
+        <el-input v-model="form.realName" readonly style="width: 370px" />
       </el-form-item>
       <el-form-item v-if="entrytype === 1" label="手机号码" prop="username">
-        <el-input v-model="form.username" readonly style="width: 370px;"/>
+        <el-input v-model="form.username" readonly style="width: 370px" />
       </el-form-item>
-      <el-form-item v-if="entrytype === 1" label="签约邮箱" >
-        <el-input v-model="form.email" readonly style="width: 370px;"/>
+      <el-form-item v-if="entrytype === 1" label="签约邮箱">
+        <el-input v-model="form.email" readonly style="width: 370px" />
       </el-form-item>
       <el-form-item v-if="entrytype === 1" label="生源" prop="source">
-        <el-select v-model="form.source" disabled placeholder="注册来源" class="filter-item" style="width: 370px">
-          <el-option v-for="item in stusources" :key="item.key" :label="item.label" :value="item.value"/>
+        <el-select
+          v-model="form.source"
+          disabled
+          placeholder="注册来源"
+          class="filter-item"
+          style="width: 370px"
+        >
+          <el-option
+            v-for="item in stusources"
+            :key="item.key"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="学段" prop="grade">
-        <el-select v-model="form.grade" :disabled="entrytype !=1" clearable placeholder="学段" class="filter-item" style="width: 370px" @change="getDeptInfos">
-          <el-option v-for="item in grades" :key="item.key" :label="item.label" :value="item.value"/>
+        <el-select
+          v-model="form.grade"
+          :disabled="entrytype != 1"
+          clearable
+          placeholder="学段"
+          class="filter-item"
+          style="width: 370px"
+          @change="getDeptInfos"
+        >
+          <el-option
+            v-for="item in grades"
+            :key="item.key"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
       <el-form-item label="部门" prop="deptId">
-        <el-select v-model="form.deptId" :disabled="entrytype !=1" clearable placeholder="服务部门" class="filter-item" style="width: 370px">
-          <el-option v-for="item in deptinfos" :key="item.id" :label="item.label" :value="item.id"/>
+        <el-select
+          v-model="form.deptId"
+          :disabled="entrytype != 1"
+          clearable
+          placeholder="服务部门"
+          class="filter-item"
+          style="width: 370px"
+        >
+          <el-option
+            v-for="item in deptinfos"
+            :key="item.id"
+            :label="item.label"
+            :value="item.id"
+          />
         </el-select>
       </el-form-item>
       <!--      <el-form-item v-if="entrytype === 1" label="电话号码" >-->
       <!--      <el-input v-model="form.phone" style="width: 370px;"/>-->
       <!--      </el-form-item>-->
 
-      <el-form-item v-if="entrytype === 2" label="教师" prop="teachId" >
-        <el-select v-model="form.teachId" clearable placeholder="分配教师" class="filter-item" style="width: 370px">
-          <el-option v-for="item in teachinfos" :key="item.key" :label="item.username" :value="item.id"/>
+      <el-form-item v-if="entrytype === 2" label="教师" prop="teachId">
+        <el-select
+          v-model="form.teachId"
+          clearable
+          placeholder="分配教师"
+          class="filter-item"
+          style="width: 370px"
+        >
+          <el-option
+            v-for="item in teachinfos"
+            :key="item.key"
+            :label="item.username"
+            :value="item.id"
+          />
         </el-select>
       </el-form-item>
       <el-form-item v-if="entrytype === 1" label="学习端" prop="authType">
-        <el-select v-model="form.authType" clearable placeholder="学习端" class="filter-item" style="width: 370px">
-          <el-option v-for="item in stuauths" :key="item.key" :label="item.label" :value="item.value"/>
+        <el-select
+          v-model="form.authType"
+          clearable
+          placeholder="学习端"
+          class="filter-item"
+          style="width: 370px"
+        >
+          <el-option
+            v-for="item in stuauths"
+            :key="item.key"
+            :label="item.label"
+            :value="item.value"
+          />
         </el-select>
       </el-form-item>
       <!--
@@ -93,7 +156,6 @@
       <el-form-item label="更新人编号 关联用户编号" >
         <el-input v-model="form.updateBy" style="width: 370px;"/>
       </el-form-item>-->
-
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button type="text" @click="cancel">取消</el-button>
@@ -110,32 +172,33 @@ export default {
   props: {
     isAdd: {
       type: Boolean,
-      required: true
+      required: true,
     },
     sup_this: {
       type: Object,
-      default: null
+      default: null,
     },
     grades: {
       type: Array,
-      required: true
+      required: true,
     },
     stuauths: {
       type: Array,
-      required: true
+      required: true,
     },
     stusources: {
       type: Array,
-      required: true
+      required: true,
     },
     entrytype: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      loading: false, dialog: false,
+      loading: false,
+      dialog: false,
       teachinfos: [],
       deptinfos: [],
       form: {
@@ -177,67 +240,65 @@ export default {
         pushId: '',
         source: '',
         authType: '',
-        deptId: ''
+        deptId: '',
       },
       rules: {
-        teachId: [
-          { required: true, message: '请选择老师', trigger: 'blur' }
-        ],
-        grade: [
-          { required: true, message: '请选择学段', trigger: 'blur' }
-        ],
-        deptId: [
-          { required: true, message: '请选择部门', trigger: 'blur' }
-        ],
-        authType: [
-          { required: true, message: '请选择学习端', trigger: 'blur' }
-        ]
-      }
+        teachId: [{ required: true, message: '请选择老师', trigger: 'blur' }],
+        grade: [{ required: true, message: '请选择学段', trigger: 'blur' }],
+        deptId: [{ required: true, message: '请选择部门', trigger: 'blur' }],
+        authType: [{ required: true, message: '请选择学习端', trigger: 'blur' }],
+      },
     }
   },
   methods: {
     cancel() {
       this.resetForm()
     },
-    getTeachInfos() {
-      var params = {}
-      getTeachInfos(params).then(res => {
+    getTeachInfos(deptId) {
+      var params = { deptId }
+      getTeachInfos(params).then((res) => {
         // console.log(res)
         this.teachinfos = res
       })
     },
     doSubmit() {
-      this.$refs['form'].validate(valid => {
+      this.$refs['form'].validate((valid) => {
         if (valid) {
           this.loading = true
           if (this.isAdd) {
             this.doAdd()
-          } else { this.doEdit() }
+          } else {
+            this.doEdit()
+          }
         }
       })
     },
     doAdd() {
-      add(this.form).then(res => {
-        this.resetForm()
-        this.$notify({
-          title: '添加成功',
-          type: 'success',
-          duration: 2500
+      add(this.form)
+        .then((res) => {
+          this.resetForm()
+          this.$notify({
+            title: '添加成功',
+            type: 'success',
+            duration: 2500,
+          })
+          this.loading = false
+          this.$parent.$parent.init()
         })
-        this.loading = false
-        this.$parent.$parent.init()
-      }).catch(err => {
-        this.loading = false
-        console.log(err.response.data.message)
-      })
+        .catch((err) => {
+          this.loading = false
+          console.log(err.response.data.message)
+        })
     },
     doEdit() {
-      edit(this.form).then(res => {
-        this.showmsg(res)
-      }).catch(err => {
-        this.loading = false
-        console.log(err.response.data.message)
-      })
+      edit(this.form)
+        .then((res) => {
+          this.showmsg(res)
+        })
+        .catch((err) => {
+          this.loading = false
+          console.log(err.response.data.message)
+        })
     },
     showmsg(res) {
       var info = 'error'
@@ -253,7 +314,7 @@ export default {
       this.$notify({
         title: msg,
         type: info,
-        duration: 2500
+        duration: 2500,
       })
     },
     resetForm() {
@@ -298,29 +359,27 @@ export default {
         pushId: '',
         source: '',
         authType: '',
-        deptId: ''
+        deptId: '',
       }
     },
     getDeptInfos(val) {
       const params = { grade: val }
       const _this = this
-      getAllDept(params).then(res => {
+      getAllDept(params).then((res) => {
         // console.log(res)
         _this.deptinfos = res
         const oldDeptId = _this.form.deptId
         _this.form.deptId = ''
-        _this.deptinfos.forEach(item => {
+        _this.deptinfos.forEach((item) => {
           if (item.id === oldDeptId) {
             _this.form.deptId = item.id
             return
           }
         })
       })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
