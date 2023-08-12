@@ -356,7 +356,7 @@ export default {
     toCp(stuId, real_name) {
       // 带参数跳转 qsinfo_index/qsexam/qsresults
       this.$router.push({
-        name: '测评成绩',
+        name: '测试记录',
         params: { stuId: stuId, realName: real_name },
       })
     },
