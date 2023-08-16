@@ -218,9 +218,9 @@ export default {
         this.params[type] = value
       }
 
-      if (this.user.job === '老师') {
-        query.teachName = this.user.username
-      }
+      // if (this.user.job === '老师') {
+      //   query.teachName = this.user.username
+      // }
 
       const stuId = query.stuName
       if (stuId !== '' && stuId !== null) {

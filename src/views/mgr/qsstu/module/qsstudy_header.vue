@@ -40,7 +40,6 @@
       @keyup.enter.native="toQuery"
     />
     <el-input
-      v-if="user.job !== '老师'"
       v-model="query.teachName"
       clearable
       placeholder="教师姓名"
@@ -49,12 +48,7 @@
       @keyup.enter.native="toQuery"
     />
 
-    <el-button
-      class="filter-item"
-      size="mini"
-      type="success"
-      icon="el-icon-search"
-      @click="toQuery"
+    <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="toQuery"
       >搜索</el-button
     >
     <!-- 新增 -->
@@ -74,8 +68,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import eForm from "./qsstudy_form";
+import { mapGetters } from 'vuex'
+import eForm from './qsstudy_form'
 export default {
   components: { eForm },
   props: {
@@ -85,24 +79,24 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["user"]),
+    ...mapGetters(['user']),
   },
   data() {
     return {
       queryTypeOptions: [
-        { key: "stuId", display_name: "学生ID" },
-        { key: "qstextbookId", display_name: "目录编号" },
-        { key: "qstextbooktwoId", display_name: "单元内序号" },
-        { key: "deptId", display_name: "部门ID" },
-        { key: "teachId", display_name: "老师的用户id" },
+        { key: 'stuId', display_name: '学生ID' },
+        { key: 'qstextbookId', display_name: '目录编号' },
+        { key: 'qstextbooktwoId', display_name: '单元内序号' },
+        { key: 'deptId', display_name: '部门ID' },
+        { key: 'teachId', display_name: '老师的用户id' },
       ],
-    };
+    }
   },
   methods: {
     toQuery() {
-      this.$parent.page = 0;
-      this.$parent.init();
+      this.$parent.page = 0
+      this.$parent.init()
     },
   },
-};
+}
 </script>
