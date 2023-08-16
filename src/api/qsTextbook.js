@@ -4,14 +4,14 @@ export function add(data) {
   return request({
     url: 'api/qsTextbook',
     method: 'post',
-    data
+    data,
   })
 }
 
 export function del(id) {
   return request({
     url: 'api/qsTextbook/' + id,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -19,7 +19,7 @@ export function edit(data) {
   return request({
     url: 'api/qsTextbook',
     method: 'put',
-    data
+    data,
   })
 }
 
@@ -27,6 +27,12 @@ export function getByUrlParams(url, params) {
   return request({
     url: url,
     method: 'get',
-    params
+    params,
+  })
+}
+
+export function getAllTeachs() {
+  return request({
+    url: '/api/getCourseTeachInfos',
   })
 }

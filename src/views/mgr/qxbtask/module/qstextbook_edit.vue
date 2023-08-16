@@ -1,7 +1,14 @@
 <template>
   <div>
     <el-button size="mini" type="primary" icon="el-icon-edit" @click="to" />
-    <eForm ref="form" :sub-types="subTypes" :stuauths="stuauths" :grades="grades" :sup_this="sup_this" :is-add="false" />
+    <eForm
+      ref="form"
+      :sub-types="subTypes"
+      :stuauths="stuauths"
+      :grades="grades"
+      :sup_this="sup_this"
+      :is-add="false"
+    />
   </div>
 </template>
 <script>
@@ -11,24 +18,24 @@ export default {
   props: {
     data: {
       type: Object,
-      required: true
+      required: true,
     },
     sup_this: {
       type: Object,
-      required: true
+      required: true,
     },
     subTypes: {
       type: Array,
-      required: true
+      required: true,
     },
     grades: {
       type: Array,
-      required: true
+      required: true,
     },
     stuauths: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     to() {
@@ -46,11 +53,12 @@ export default {
         imageUrl: this.data.imageUrl,
         qsDesc: this.data.qsDesc,
         authType: this.data.authType,
-        enabled: this.data.enabled
+        teachId: this.data.teachId,
+        enabled: this.data.enabled,
       }
       _this.dialog = true
-    }
-  }
+    },
+  },
 }
 </script>
 
