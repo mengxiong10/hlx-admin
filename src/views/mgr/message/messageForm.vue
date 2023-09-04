@@ -2,29 +2,34 @@
   <el-dialog
     :append-to-body="true"
     :visible="visible"
-    :title="initialData ? '编辑商品' : '新增商品'"
+    :title="initialData ? '编辑消息' : '新增消息'"
     width="600px"
     @close="handleCancel"
   >
     <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="80px">
-      <el-form-item label="课程" prop="qstb_id">
+      <el-form-item label="标题" prop="title">
+        <el-input v-model="form.title" />
+      </el-form-item>
+      <el-form-item label="内容" prop="newsContent">
+        <el-input v-model="form.newsContent" :rows="2" type="textarea" />
+      </el-form-item>
+      <el-form-item label="接收人" prop="receiver">
         <el-select
-          v-model="form.qstb_id"
-          :remote-method="getTextbook"
+          v-model="form.receiver"
+          :remote-method="getOptions"
           :loading="loadingData"
           filterable
           remote
           reserve-keyword
           placeholder="请输入关键词"
         >
-          <el-option v-for="item in options" :key="item.id" :label="item.qsName" :value="item.id" />
+          <el-option
+            v-for="item in options"
+            :key="item.id"
+            :label="item.real_name"
+            :value="item.id"
+          />
         </el-select>
-      </el-form-item>
-      <el-form-item label="描述" prop="title">
-        <el-input v-model="form.title" :rows="2" type="textarea" />
-      </el-form-item>
-      <el-form-item label="价格" prop="price">
-        <el-input-number v-model="form.price" :min="0" controls-position="right" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -35,7 +40,7 @@
 </template>
 
 <script>
-import { add, edit, searchTextbook } from '@/api/product'
+import { add, edit, searchUser } from '@/api/qsMessage'
 
 export default {
   props: {
@@ -59,16 +64,14 @@ export default {
   data() {
     return {
       form: {
-        qstb_id: '',
+        receiver: '',
         title: '',
-        price: 0,
+        newsContent: '',
       },
       rules: {
-        qstb_id: [{ required: true, message: '请选择课程', trigger: 'blur' }],
-        price: [
-          { required: true, message: '价格不能为空', trigger: 'blur' },
-          { type: 'number', message: '价格必须为数字值' },
-        ],
+        receiver: [{ required: true, message: '请选择课程', trigger: 'blur' }],
+        newsContent: [{ required: true, message: '内容不能为空', trigger: 'blur' }],
+        title: [{ required: true, message: '内容不能为空', trigger: 'blur' }],
       },
       loading: false,
       loadingData: false,
@@ -96,9 +99,9 @@ export default {
         }
       })
     },
-    getTextbook(name) {
+    getOptions(name) {
       this.loadingData = true
-      searchTextbook(name)
+      searchUser(name)
         .then((res) => {
           this.options = res.content
           this.loadingData = false

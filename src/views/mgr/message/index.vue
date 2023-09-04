@@ -5,11 +5,11 @@
     </div>
     <el-table v-loading="loading" :data="data" border size="small" style="width: 100%">
       <el-table-column prop="id" label="id" />
-      <el-table-column prop="qstb_name" label="课程名" />
-      <el-table-column prop="price" label="价格" />
+      <el-table-column prop="title" label="标题" />
+      <el-table-column prop="newsContent" label="内容" />
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini">编辑</el-button>
+          <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
           <el-popconfirm title="确定删除本条数据吗？" @confirm="handleDel(scope.row.id)">
             <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
           </el-popconfirm>
@@ -23,7 +23,7 @@
       @size-change="sizeChange"
       @current-change="pageChange"
     />
-    <produce-form
+    <message-form
       :visible="formVisible"
       :on-close="handleFormClose"
       :on-success="getData"
@@ -33,11 +33,11 @@
 </template>
 
 <script>
-import { getProductList, del } from '@/api/product'
-import ProduceForm from './productForm.vue'
+import { get, del } from '@/api/qsMessage'
+import MessageForm from './messageForm.vue'
 
 export default {
-  components: { ProduceForm },
+  components: { MessageForm },
   data() {
     return {
       params: {
@@ -73,7 +73,7 @@ export default {
     },
     getData() {
       this.loading = true
-      getProductList(this.params)
+      get(this.params)
         .then((res) => {
           this.loading = false
           this.data = res.content
