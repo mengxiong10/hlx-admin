@@ -15,7 +15,7 @@
           filterable
           remote
           reserve-keyword
-          placeholder="请输入关键词"
+          placeholder="请输入关键词搜索"
         >
           <el-option v-for="item in options" :key="item.id" :label="item.qsName" :value="item.id" />
         </el-select>
@@ -65,6 +65,7 @@ export default {
       },
       rules: {
         qstb_id: [{ required: true, message: '请选择课程', trigger: 'blur' }],
+        title: [{ required: true, message: '无能为空', trigger: 'blur' }],
         price: [
           { required: true, message: '价格不能为空', trigger: 'blur' },
           { type: 'number', message: '价格必须为数字值' },
