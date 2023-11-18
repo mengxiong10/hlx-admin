@@ -9,6 +9,7 @@
     <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="80px">
       <el-form-item label="课程" prop="qstb_id">
         <el-select
+          :disabled="!!initialData"
           v-model="form.qstb_id"
           :remote-method="getTextbook"
           :loading="loadingData"
@@ -24,7 +25,10 @@
         <el-input v-model="form.title" :rows="2" type="textarea" />
       </el-form-item>
       <el-form-item label="价格" prop="price">
-        <el-input-number v-model="form.price" :min="0" controls-position="right" />
+        <el-input-number v-model="form.price" :min="1" controls-position="right" />
+      </el-form-item>
+      <el-form-item label="佣金" prop="rebate">
+        <el-input-number v-model="form.rebate" :min="0" controls-position="right" />
       </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
@@ -61,7 +65,8 @@ export default {
       form: {
         qstb_id: '',
         title: '',
-        price: 0,
+        price: 1,
+        rebate: 0,
       },
       rules: {
         qstb_id: [{ required: true, message: '请选择课程', trigger: 'blur' }],
@@ -69,6 +74,10 @@ export default {
         price: [
           { required: true, message: '价格不能为空', trigger: 'blur' },
           { type: 'number', message: '价格必须为数字值' },
+        ],
+        rebate: [
+          { required: true, message: '佣金不能为空', trigger: 'blur' },
+          { type: 'number', message: '佣金必须为数字值' },
         ],
       },
       loading: false,

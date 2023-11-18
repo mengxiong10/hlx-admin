@@ -8,6 +8,7 @@
       <el-table-column prop="qs_name" label="课程名" />
       <el-table-column prop="title" label="描述" />
       <el-table-column prop="price" label="价格" />
+      <el-table-column prop="rebate" label="佣金" />
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
           <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
