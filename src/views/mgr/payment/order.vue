@@ -4,7 +4,14 @@
       <el-table-column prop="id" label="id" />
       <el-table-column prop="user_name" label="用户名" />
       <el-table-column prop="product_name" label="商品名称" />
+      <el-table-column prop="order_status" label="支付状态" />
+      <el-table-column prop="create_time" label="支付时间">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.create_time) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column prop="price" label="价格" />
+      <el-table-column prop="total_fee" label="佣金" />
       <el-table-column prop="title" label="描述" />
     </el-table>
     <el-pagination
@@ -19,6 +26,7 @@
 
 <script>
 import { getPaymentList } from '@/api/product'
+import { parseTime } from '@/utils/index'
 
 export default {
   data() {
@@ -36,6 +44,7 @@ export default {
     this.getData()
   },
   methods: {
+    parseTime,
     getData() {
       this.loading = true
       getPaymentList(this.params)
