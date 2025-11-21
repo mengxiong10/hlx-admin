@@ -1,8 +1,22 @@
 <template>
   <div class="app-container">
-    <eHeader :query="query" :sup_this="sup_this" :grades="grades" :sub-types="subTypes" :upload-file-type="uploadFileType" :sub-type="subType" />
+    <eHeader
+      :query="query"
+      :sup_this="sup_this"
+      :grades="grades"
+      :sub-types="subTypes"
+      :upload-file-type="uploadFileType"
+      :sub-type="subType"
+    />
     <!--表格渲染-->
-    <el-table v-loading="loading" :data="data" border size="small" style="width: 100%;" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="data"
+      border
+      size="small"
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column type="selection" width="55" />
       <el-table-column type="expand" label="其他">
         <template slot-scope="props">
@@ -10,99 +24,94 @@
             <el-row>
               <el-col :span="8">
                 <el-form-item label="音频文件名:">
-                  <span>{{ isEmpty( props.row.qsAudioName)?'无':props.row.qsAudioName }}</span>
+                  <span>{{ isEmpty(props.row.qsAudioName) ? '无' : props.row.qsAudioName }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="视频文件名:">
-                  <span>{{ isEmpty( props.row.qsVideoName)?'无':props.row.qsVideoName }}</span>
+                  <span>{{ isEmpty(props.row.qsVideoName) ? '无' : props.row.qsVideoName }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="图片文件名:">
-                  <span>{{ isEmpty( props.row.qsImgName)?'无':props.row.qsImgName }}</span>
+                  <span>{{ isEmpty(props.row.qsImgName) ? '无' : props.row.qsImgName }}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
-
               <el-col :span="8">
                 <el-form-item label="解析:">
-                  <span>{{ isEmpty( props.row.qsAnalysis)?'无':props.row.qsAnalysis }}</span>
+                  <span>{{ isEmpty(props.row.qsAnalysis) ? '无' : props.row.qsAnalysis }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="填空题题目文字:">
-                  <span>{{ isEmpty( props.row.qsTkQuestion)?'无':props.row.qsTkQuestion }}</span>
+                  <span>{{ isEmpty(props.row.qsTkQuestion) ? '无' : props.row.qsTkQuestion }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="填空题文件名:">
-                  <span>{{ isEmpty( props.row.qsTkFileName)?'无':props.row.qsTkFileName }}</span>
+                  <span>{{ isEmpty(props.row.qsTkFileName) ? '无' : props.row.qsTkFileName }}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="填空题答案:">
-                  <span>{{ isEmpty( props.row.qsTkAnswer)?'无':props.row.qsTkAnswer }}</span>
+                  <span>{{ isEmpty(props.row.qsTkAnswer) ? '无' : props.row.qsTkAnswer }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="填空题提示文字:">
-                  <span>{{ isEmpty( props.row.qsTkTips)?'无':props.row.qsTkTips }}</span>
+                  <span>{{ isEmpty(props.row.qsTkTips) ? '无' : props.row.qsTkTips }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="填空题提示文件名:">
-                  <span>{{ isEmpty( props.row.qsTkTipsName)?'无':props.row.qsTkTipsName }}</span>
+                  <span>{{ isEmpty(props.row.qsTkTipsName) ? '无' : props.row.qsTkTipsName }}</span>
                 </el-form-item>
               </el-col>
-
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="选择题目文字:">
-                  <span>{{ isEmpty( props.row.qsXzQuestion)?'无':props.row.qsXzQuestion }}</span>
+                  <span>{{ isEmpty(props.row.qsXzQuestion) ? '无' : props.row.qsXzQuestion }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="选择题目文件名:">
-                  <span>{{ isEmpty( props.row.qsXzFileName)?'无':props.row.qsXzFileName }}</span>
+                  <span>{{ isEmpty(props.row.qsXzFileName) ? '无' : props.row.qsXzFileName }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="选择题答案:">
-                  <span>{{ isEmpty( props.row.qsXzAnswer)?'无':props.row.qsXzAnswer }}</span>
+                  <span>{{ isEmpty(props.row.qsXzAnswer) ? '无' : props.row.qsXzAnswer }}</span>
                 </el-form-item>
               </el-col>
-
             </el-row>
             <el-row>
-
               <el-col :span="8">
                 <el-form-item label="选择题文字提示:">
-                  <span>{{ isEmpty( props.row.qsXzTips)?'无':props.row.qsXzTips }}</span>
+                  <span>{{ isEmpty(props.row.qsXzTips) ? '无' : props.row.qsXzTips }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="选择题提示文件名:">
-                  <span>{{ isEmpty( props.row.qsXzTipsName)?'无':props.row.qsXzTipsName }}</span>
+                  <span>{{ isEmpty(props.row.qsXzTipsName) ? '无' : props.row.qsXzTipsName }}</span>
                 </el-form-item>
               </el-col>
             </el-row>
             <el-row>
               <el-col :span="8">
                 <el-form-item label="选择题提示文件类型:">
-                  <span>{{ isEmpty( props.row.qsXzFileType)?'无':props.row.qsXzFileType }}</span>
+                  <span>{{ isEmpty(props.row.qsXzFileType) ? '无' : props.row.qsXzFileType }}</span>
                 </el-form-item>
               </el-col>
               <el-col :span="8">
                 <el-form-item label="选择题文件名:">
-                  <span>{{ isEmpty( props.row.qsXzFileName)?'无':props.row.qsXzFileName }}</span>
+                  <span>{{ isEmpty(props.row.qsXzFileName) ? '无' : props.row.qsXzFileName }}</span>
                 </el-form-item>
               </el-col>
-
             </el-row>
           </el-form>
         </template>
@@ -110,7 +119,7 @@
       <el-table-column align="center" prop="id" label="编号" />
       <el-table-column align="center" prop="subType" label="科目">
         <template slot-scope="scope">
-          {{ transName(subTypes,scope.row.subType) }}
+          {{ transName(subTypes, scope.row.subType) }}
         </template>
       </el-table-column>
       <el-table-column align="center" prop="qsTextbookTwo.qsTextbook.qsName" label="课程名称" />
@@ -124,16 +133,38 @@
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
+      <el-table-column align="center" prop="updateTime" show-overflow-tooltip label="更新时间">
+        <template slot-scope="scope">
+          <span>{{ parseTime(scope.row.updateTime) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="操作" width="180px" align="center">
         <template slot-scope="scope">
-          <edit :data="scope.row" :sup_this="sup_this" :sub-types="subTypes" :upload-file-type="uploadFileType" />
-          <editScene v-permission="['ADMIN','QSINFOYY_ALL','QSINFOYY_EDIT']" :data="scope.row" :sup_this="sup_this" />
+          <edit
+            :data="scope.row"
+            :sup_this="sup_this"
+            :sub-types="subTypes"
+            :upload-file-type="uploadFileType"
+          />
+          <editScene
+            v-permission="['ADMIN', 'QSINFOYY_ALL', 'QSINFOYY_EDIT']"
+            :data="scope.row"
+            :sup_this="sup_this"
+          />
 
           <el-popover :ref="scope.row.id" placement="top" width="180">
             <p>确定删除本条数据吗？</p>
             <div style="text-align: right; margin: 0">
-              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()">取消</el-button>
-              <el-button :loading="delLoading" type="primary" size="mini" @click="subDelete(scope.row.id)">确定</el-button>
+              <el-button size="mini" type="text" @click="$refs[scope.row.id].doClose()"
+                >取消</el-button
+              >
+              <el-button
+                :loading="delLoading"
+                type="primary"
+                size="mini"
+                @click="subDelete(scope.row.id)"
+                >确定</el-button
+              >
             </div>
             <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
           </el-popover>
@@ -141,7 +172,13 @@
       </el-table-column>
     </el-table>
     <!--分页组件-->
-    <el-pagination :total="total" style="margin-top: 8px;" layout="total, prev, pager, next, sizes" @size-change="sizeChange" @current-change="pageChange" />
+    <el-pagination
+      :total="total"
+      style="margin-top: 8px"
+      layout="total, prev, pager, next, sizes"
+      @size-change="sizeChange"
+      @current-change="pageChange"
+    />
   </div>
 </template>
 
@@ -161,12 +198,13 @@ export default {
   mixins: [initData],
   data() {
     return {
-      delLoading: false, sup_this: this,
+      delLoading: false,
+      sup_this: this,
       uploadFileType: [],
       subTypes: [],
       grades: [],
       subType: '001002',
-      multipleSelection: []
+      multipleSelection: [],
     }
   },
   created() {
@@ -183,7 +221,7 @@ export default {
     transName,
     checkPermission,
     dictName(name) {
-      dictName(name).then(res => {
+      dictName(name).then((res) => {
         if (name === 'subtype_code') {
           this.subTypes = res
         }
@@ -202,36 +240,38 @@ export default {
       this.$confirm('此操作将永久删除选中文件, 是否继续?', '提示', {
         confirmButtonText: '确定删除',
         cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        if (this.multipleSelection.length <= 0) {
-          this.$notify({
-            title: '请选择要删除的课程',
-            type: 'info',
-            duration: 2500
-          })
-          return
-        }
-        var ids = []
-        this.multipleSelection.forEach(res => {
-          ids.push(res.id)
-        })
-        this.delLoading = true
-        deleteBatch({ 'ids': ids }).then(res => {
-          if (res.respCode === '000000') {
-            this.delLoading = false
-            this.$notify.success('操作成功')
-            this.init()
-          } else {
-            this.$notify.error('操作失败')
-          }
-        })
-      }).catch(() => {
-        this.$message({
-          type: 'info',
-          message: '已取消删除'
-        })
+        type: 'warning',
       })
+        .then(() => {
+          if (this.multipleSelection.length <= 0) {
+            this.$notify({
+              title: '请选择要删除的课程',
+              type: 'info',
+              duration: 2500,
+            })
+            return
+          }
+          var ids = []
+          this.multipleSelection.forEach((res) => {
+            ids.push(res.id)
+          })
+          this.delLoading = true
+          deleteBatch({ ids: ids }).then((res) => {
+            if (res.respCode === '000000') {
+              this.delLoading = false
+              this.$notify.success('操作成功')
+              this.init()
+            } else {
+              this.$notify.error('操作失败')
+            }
+          })
+        })
+        .catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除',
+          })
+        })
     },
     beforeInit() {
       this.url = 'api/qsInfo'
@@ -240,47 +280,60 @@ export default {
       const query = this.query
       const type = query.type
       const value = query.value
-      if (type && value) { this.params[type] = value }
+      if (type && value) {
+        this.params[type] = value
+      }
 
       const subType = query.subType
-      if (subType !== '' && subType !== null) { this.params['subType'] = '001002' }
+      if (subType !== '' && subType !== null) {
+        this.params['subType'] = '001002'
+      }
       const trialGrades = query.trialGrades
-      if (trialGrades !== '' && trialGrades !== null) { this.params['trialGrades'] = trialGrades }
+      if (trialGrades !== '' && trialGrades !== null) {
+        this.params['trialGrades'] = trialGrades
+      }
       const qsName = query.qsName
-      if (qsName !== '' && qsName !== null) { this.params['qsName'] = qsName }
+      if (qsName !== '' && qsName !== null) {
+        this.params['qsName'] = qsName
+      }
       const qsUnit = query.qsUnit
-      if (qsUnit !== '' && qsUnit !== null) { this.params['qsUnit'] = qsUnit }
+      if (qsUnit !== '' && qsUnit !== null) {
+        this.params['qsUnit'] = qsUnit
+      }
       const qsUnitSort = query.qsUnitSort
-      if (qsUnitSort !== '' && qsUnitSort !== null) { this.params['qsUnitSort'] = qsUnitSort }
+      if (qsUnitSort !== '' && qsUnitSort !== null) {
+        this.params['qsUnitSort'] = qsUnitSort
+      }
 
       return true
     },
     subDelete(id) {
       this.delLoading = true
-      del(id).then(res => {
-        var msg = res.respMsg
-        var info = 'error'
-        if (res.respCode === '000000') {
+      del(id)
+        .then((res) => {
+          var msg = res.respMsg
+          var info = 'error'
+          if (res.respCode === '000000') {
+            this.delLoading = false
+            this.$refs[id].doClose()
+            this.init()
+            info = 'success'
+            msg = res.respBody
+          }
+          this.$notify({
+            title: msg,
+            type: info,
+            duration: 2500,
+          })
+        })
+        .catch((err) => {
           this.delLoading = false
           this.$refs[id].doClose()
-          this.init()
-          info = 'success'
-          msg = res.respBody
-        }
-        this.$notify({
-          title: msg,
-          type: info,
-          duration: 2500
+          console.log(err.response.data.message)
         })
-      }).catch(err => {
-        this.delLoading = false
-        this.$refs[id].doClose()
-        console.log(err.response.data.message)
-      })
-    }
-  }
+    },
+  },
 }
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
