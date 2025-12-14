@@ -4,14 +4,14 @@ export function add(data) {
   return request({
     url: 'api/qsFeedback',
     method: 'post',
-    data
+    data,
   })
 }
 
 export function del(id) {
   return request({
     url: 'api/qsFeedback/' + id,
-    method: 'delete'
+    method: 'delete',
   })
 }
 
@@ -19,6 +19,18 @@ export function edit(data) {
   return request({
     url: 'api/qsFeedback',
     method: 'put',
-    data
+    data,
+  })
+}
+
+export function searchStudent(name) {
+  return request({
+    url: 'api/qsStudent',
+    method: 'get',
+    params: {
+      realName: name,
+      page: 0,
+      size: 100,
+    },
   })
 }
