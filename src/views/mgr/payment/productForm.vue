@@ -7,10 +7,10 @@
     @close="handleCancel"
   >
     <el-form ref="form" :model="form" :rules="rules" label-position="right" label-width="80px">
-      <el-form-item label="课程" prop="qstb_id">
+      <el-form-item label="课程" prop="qstbId">
         <el-select
           :disabled="!!initialData"
-          v-model="form.qstb_id"
+          v-model="form.qstbId"
           :remote-method="getTextbook"
           :loading="loadingData"
           filterable
@@ -63,13 +63,13 @@ export default {
   data() {
     return {
       form: {
-        qstb_id: '',
+        qstbId: '',
         title: '',
         price: 1,
         rebate: 0,
       },
       rules: {
-        qstb_id: [{ required: true, message: '请选择课程', trigger: 'blur' }],
+        qstbId: [{ required: true, message: '请选择课程', trigger: 'blur' }],
         title: [{ required: true, message: '无能为空', trigger: 'blur' }],
         price: [
           { required: true, message: '价格不能为空', trigger: 'blur' },
@@ -89,9 +89,17 @@ export default {
     visible(value) {
       if (value) {
         if (this.initialData) {
-          Object.keys(this.form).forEach((key) => {
-            this.form[key] = this.initialData[key]
-          })
+          // 处理后端返回的下划线命名转换为驼峰命名
+          this.form.qstbId = this.initialData.qstb_id || this.initialData.qstbId
+          this.form.title = this.initialData.title
+          this.form.price = this.initialData.price
+          this.form.rebate = this.initialData.rebate
+        } else {
+          // 重置表单
+          this.form.qstbId = ''
+          this.form.title = ''
+          this.form.price = 1
+          this.form.rebate = 0
         }
       }
     },
