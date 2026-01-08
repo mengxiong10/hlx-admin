@@ -13,7 +13,7 @@
     "test": "npm run lint",
     "precommit": "lint-staged",
     "svgo": "svgo -f src/icons/svg --config=src/icons/svgo.yml",
-    "release": "rm -rf dist && bash ./release.sh"
+    "release": "rm -rf dist && npm run build && bash ./release.sh"
   },
   "repository": {
     "type": "git",
