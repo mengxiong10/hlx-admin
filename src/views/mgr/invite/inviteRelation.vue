@@ -1,40 +1,26 @@
 <template>
   <div class="app-container">
     <div class="head-container">
-      <el-input
-        v-model="params.qstb_name"
-        clearable
-        placeholder="输入课程名搜索"
-        style="width: 200px"
-        class="filter-item"
-        @keyup.enter.native="getData"
-      />
-      <el-button class="filter-item" size="mini" type="success" icon="el-icon-search" @click="getData"
-        >搜索</el-button
-      >
-      <el-button class="filter-item" size="mini" type="primary" icon="el-icon-plus" @click="handleAdd">新增</el-button>
+      <el-button size="mini" type="primary" @click="handleAdd">新增邀请关系</el-button>
     </div>
     <el-table v-loading="loading" :data="data" border size="small" style="width: 100%">
-      <el-table-column prop="id" label="id" />
-      <el-table-column prop="qs_name" label="课程名" />
-      <el-table-column prop="title" label="描述" />
-      <el-table-column prop="price" label="价格" />
-      <el-table-column prop="rebate" label="佣金" />
+      <el-table-column prop="inviteeName" label="被邀请人" />
+      <el-table-column prop="inviterName" label="邀请人" />
+      <el-table-column prop="invite_code" label="邀请码" />
       <el-table-column prop="create_time" label="创建时间">
         <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.create_time) }}</span>
+          {{ formatTime(scope.row.create_time) }}
         </template>
       </el-table-column>
       <el-table-column prop="update_time" label="更新时间">
         <template slot-scope="scope">
-          <span>{{ formatTime(scope.row.update_time) }}</span>
+          {{ formatTime(scope.row.update_time) }}
         </template>
       </el-table-column>
       <el-table-column label="操作" width="150">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleEdit(scope.row)">编辑</el-button>
-          <el-popconfirm title="确定删除本条数据吗？" @confirm="handleDel(scope.row.id)">
-            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini" />
+          <el-popconfirm title="确定删除本条邀请关系吗？" @confirm="handleDel(scope.row.id)">
+            <el-button slot="reference" type="danger" icon="el-icon-delete" size="mini">删除</el-button>
           </el-popconfirm>
         </template>
       </el-table-column>
@@ -46,34 +32,31 @@
       @size-change="sizeChange"
       @current-change="pageChange"
     />
-    <produce-form
+    <invite-relation-form
       :visible="formVisible"
       :on-close="handleFormClose"
       :on-success="getData"
-      :initial-data="initialData"
     />
   </div>
 </template>
 
 <script>
-import { getProductList, del } from '@/api/product'
-import ProduceForm from './productForm.vue'
-import { parseTime } from '@/utils/index'
+import { getInviteRelations, deleteInviteRelation } from '@/api/invite'
+import InviteRelationForm from './inviteRelationForm.vue'
+import { parseTime } from '@/utils'
 
 export default {
-  components: { ProduceForm },
+  components: { InviteRelationForm },
   data() {
     return {
       params: {
         page: 0,
         size: 10,
-        qstb_name: '',
       },
       loading: false,
       data: [],
       total: 0,
       formVisible: false,
-      initialData: null,
     }
   },
   created() {
@@ -82,6 +65,8 @@ export default {
   methods: {
     formatTime(time) {
       if (!time) return ''
+      // 如果已经是时间戳格式（数字），直接使用
+      // 如果是字符串格式的时间，需要转换
       const timestamp = typeof time === 'number' ? time : new Date(time).getTime()
       return parseTime(timestamp)
     },
@@ -89,26 +74,23 @@ export default {
       this.formVisible = false
     },
     handleDel(id) {
-      del(id).then(() => {
-        this.getData()
-      })
+      deleteInviteRelation(id)
+        .then(() => {
+          this.$message.success('删除成功')
+          this.getData()
+        })
+        .catch(() => {})
     },
     handleAdd() {
-      this.initialData = null
-      this.formVisible = true
-    },
-    handleEdit(row) {
-      this.initialData = row
       this.formVisible = true
     },
     getData() {
       this.loading = true
-      getProductList(this.params)
+      getInviteRelations(this.params)
         .then((res) => {
           this.loading = false
           this.data = res.content
           this.total = res.totalElements
-          console.log(res)
         })
         .catch(() => {
           this.loading = false

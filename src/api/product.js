@@ -39,6 +39,13 @@ export function getPaymentList(params) {
   })
 }
 
+export function refreshOrderStatus(orderNo) {
+  return request({
+    url: 'api/payment/order-info/refresh-order-status/' + orderNo,
+    method: 'post',
+  })
+}
+
 export function searchTextbook(name) {
   return request({
     url: 'api/qsTextbook',
